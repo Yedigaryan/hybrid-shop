@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Searchbar</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [formControl]="searchBar" debounce="400"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-spinner *ngIf="(firebaseCrudService.loading | async) else scrollData" name="bubbles"></ion-spinner>
+
+  <ng-template #scrollData>
+    <ion-list>
+      <ion-item *ngFor="let result of goods" (click)="navigate(result)">
+        <ion-avatar>
+          <img [src]="result.image" class="avatar" [alt]="result.model"/>
+        </ion-avatar>
+        <ion-grid>
+          <ion-row>
+            <p class="text-bold">{{ result.name }}</p>
+          </ion-row>
+          <ion-row>
+            <p class="color-grey">{{ result.description }}</p>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+
+
+  <ion-infinite-scroll (ionInfinite)="loadData()">
+    <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      loadingText="Loading...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+

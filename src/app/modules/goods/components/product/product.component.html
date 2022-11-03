@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <img [src]="data.image" class="poster" [alt]="data.model"/>
+    </ion-row>
+    <ion-row>
+      <ion-label>
+        <h1>{{data.name}}</h1>
+      </ion-label>
+    </ion-row>
+    <ion-row>
+      <p>{{data.description}}</p>
+    </ion-row>
+    <ion-row>
+      <ion-buttons>
+        <ion-button (click)="setAmount(data.price * 10)" color="primary" fill="solid">{{data.price * 10 | currency:'USD':'symbol':'1.2-2'}}</ion-button>
+        <ion-button (click)="setAmount(data.price * 2)" color="primary" fill="solid">{{data.price * 2 | currency:'USD':'symbol':'1.2-2'}}</ion-button>
+        <ion-button (click)="setQuantity(8)" color="primary" fill="solid">8</ion-button>
+        <ion-button (click)="setQuantity(4)" color="primary" fill="solid">4</ion-button>
+      </ion-buttons>
+    </ion-row>
+    <ion-row class="inputs">
+      <ion-item>
+          <ion-label position="stacked">Amount</ion-label>
+          <ion-input type="number" [formControl]="amount"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Quantity</ion-label>
+        <ion-input type="number" [formControl]="quantity"></ion-input>
+      </ion-item>
+    </ion-row>
+  </ion-grid>
+</ion-content>
